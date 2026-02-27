@@ -1,9 +1,10 @@
 import { Component, HostListener, signal } from '@angular/core';
 import { NgClass } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
-  imports: [NgClass],
+  imports: [NgClass, RouterLink],
   templateUrl: './navbar.html',
   styleUrl: './navbar.scss',
 })
@@ -12,10 +13,10 @@ export class Navbar {
   isMenuOpen = signal(false);
 
   navLinks = [
-    { href: '#about',    label: 'Про нас'  },
-    { href: '#menu',     label: 'Меню'     },
-    { href: '#gallery',  label: 'Галерея'  },
-    { href: '#contacts', label: 'Контакти' },
+    { href: '#about',    label: 'Про нас',  highlight: false },
+    { href: '#gallery',  label: 'Галерея',  highlight: false },
+    { href: '#contacts', label: 'Контакти', highlight: false },
+    { href: '#menu',     label: 'Меню',     highlight: true  },
   ];
 
   @HostListener('window:scroll')

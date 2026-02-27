@@ -1,24 +1,49 @@
 import { Component } from '@angular/core';
-import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-gallery',
-  imports: [NgClass],
+  imports: [],
   templateUrl: './gallery.html',
   styleUrl: './gallery.scss',
 })
 export class Gallery {
-  // Varied aspect ratios for organic masonry rhythm
   galleryItems = [
-    { id: 1, label: 'Інтер\'єр',  aspect: 'aspect-[4/3]',  gradient: 'bg-gradient-to-br from-forest-dark via-forest to-forest-light/50' },
-    { id: 2, label: 'Страва',     aspect: 'aspect-square',  gradient: 'bg-gradient-to-br from-ink via-forest-dark to-gold/20'            },
-    { id: 3, label: 'Деталі',     aspect: 'aspect-[3/4]',   gradient: 'bg-gradient-to-b  from-forest-dark to-ink'                        },
-    { id: 4, label: 'Вино',       aspect: 'aspect-[4/3]',   gradient: 'bg-gradient-to-br from-gold/20 via-forest-dark to-ink'            },
-    { id: 5, label: 'Атмосфера',  aspect: 'aspect-[3/4]',   gradient: 'bg-gradient-to-b  from-ink via-forest to-forest-dark'             },
-    { id: 6, label: 'Кухня',      aspect: 'aspect-square',  gradient: 'bg-gradient-to-tl from-forest-dark to-gold/15'                    },
-    { id: 7, label: 'Терраса',    aspect: 'aspect-[4/3]',   gradient: 'bg-gradient-to-br from-forest-light/30 via-forest to-ink'         },
-    { id: 8, label: 'Десерт',     aspect: 'aspect-square',  gradient: 'bg-gradient-to-br from-gold/25 via-forest-dark to-ink'            },
-    { id: 9, label: 'Команда',    aspect: 'aspect-[3/4]',   gradient: 'bg-gradient-to-b  from-forest via-ink to-forest-dark'             },
+    {
+      id: 1,
+      label: 'Інтер\'єр',
+      caption: 'Тепло дерева та каменю Старого міста',
+      gradient: 'bg-gradient-to-br from-forest-dark via-forest to-forest-light/40',
+    },
+    {
+      id: 2,
+      label: 'Атмосфера',
+      caption: 'Вечірнє світло, яке запрошує залишитись',
+      gradient: 'bg-gradient-to-b from-ink via-forest-dark/80 to-forest',
+    },
+    {
+      id: 3,
+      label: 'Страва',
+      caption: 'Автентика Поділля на кожній тарілці',
+      gradient: 'bg-gradient-to-br from-gold/30 via-forest-dark to-ink',
+    },
+    {
+      id: 4,
+      label: 'Вино',
+      caption: 'Кураторська винна карта від сомельє',
+      gradient: 'bg-gradient-to-tl from-gold/20 via-forest-dark to-ink',
+    },
+    {
+      id: 5,
+      label: 'Деталі',
+      caption: 'Кожна дрібниця розказує свою історію',
+      gradient: 'bg-gradient-to-br from-forest via-ink to-forest-dark',
+    },
+    {
+      id: 6,
+      label: 'Кухня',
+      caption: 'Відкрита кухня — частина шоу',
+      gradient: 'bg-gradient-to-tr from-forest-dark via-forest to-gold/15',
+    },
   ];
 
   socials = [

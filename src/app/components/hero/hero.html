@@ -6,6 +6,12 @@
 
   <!-- Atmospheric layers -->
   <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+    <!-- Facade photo -->
+    <img
+      src="https://kamianets.travel/storage/469/conversions/01K810KA6Q9XWA97ADBX7A4ZST-large.webp"
+      alt=""
+      class="absolute inset-0 w-full h-full object-cover object-center"
+    />
     <!-- Deep gradient overlay -->
     <div class="absolute inset-0 bg-gradient-to-b from-ink/70 via-forest-dark/50 to-ink/80"></div>
     <!-- Radial gold glow — top right -->
@@ -21,16 +27,16 @@
   </div>
 
   <!-- Main content -->
-  <div class="relative z-10 flex flex-col items-center justify-center flex-1 px-5 pt-32 pb-20 text-center">
+  <div class="relative z-10 flex flex-col items-center justify-center flex-1 px-5 pt-20 sm:pt-32 pb-12 sm:pb-20 text-center">
     <header class="max-w-2xl mx-auto">
 
       <!-- Eyebrow -->
       <p class="section-label text-gold/70 mb-6 tracking-widest3">
-        Кам'янець-Подільський · з 2021 року
+        Кам'янець-Подільський · Старе місто
       </p>
 
       <!-- Brand name -->
-      <h1 class="brand-script text-[clamp(5rem,15vw,9rem)] text-white leading-none mb-6
+      <h1 class="brand-script text-[clamp(3.5rem,14vw,9rem)] text-white leading-none mb-6
                   drop-shadow-[0_2px_32px_rgba(201,162,77,0.25)]">
         Bona
       </h1>
@@ -55,30 +61,21 @@
     </header>
 
     <!-- CTA row -->
-    <nav class="mt-12 flex flex-col sm:flex-row gap-4 items-center" aria-label="Основні дії">
-      <a
-        href="https://expz.menu/dd5770f6-fda3-408e-b260-daebece5faba"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="btn-primary rounded-sm"
-      >
-        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
-        </svg>
-        Переглянути меню
+    <nav class="mt-8 sm:mt-12 flex flex-col sm:flex-row gap-3 sm:gap-4 items-center" aria-label="Основні дії">
+      <a routerLink="/menu" class="btn-primary rounded-sm">
+        Меню
       </a>
       <a href="#contacts" class="btn-outline rounded-sm">
-        Заброньювати стіл
+        Забронювати стіл
       </a>
     </nav>
 
     <!-- Scroll stats row -->
-    <div class="mt-16 flex items-center gap-8 sm:gap-12" aria-hidden="true">
+    <div class="mt-10 sm:mt-16 flex items-center gap-5 sm:gap-10 md:gap-12" aria-hidden="true">
       @for (stat of heroStats; track stat.label) {
         <div class="text-center">
-          <p class="font-serif text-2xl text-gold font-medium leading-none mb-1">{{ stat.value }}</p>
-          <p class="text-[9px] text-white/40 uppercase tracking-widest">{{ stat.label }}</p>
+          <p class="font-serif text-xl sm:text-2xl text-gold font-medium leading-none mb-1">{{ stat.value }}</p>
+          <p class="text-[8px] sm:text-[9px] text-white/40 uppercase tracking-widest">{{ stat.label }}</p>
         </div>
       }
     </div>
@@ -89,22 +86,13 @@
               border-t border-white/10 py-3" aria-hidden="true">
     <div class="flex animate-marquee whitespace-nowrap select-none">
       @for (phrase of marquee; track $index) {
-        <span class="text-white/40 text-[9px] uppercase tracking-widest2 px-8 font-medium">
-          {{ phrase }}
+        <span class="font-serif italic text-[11px] sm:text-[13px] tracking-wide px-6 sm:px-10">
+          <span class="text-gold">{{ phrase.icon }}</span>
+          <span class="text-white/65"> {{ phrase.text }}</span>
         </span>
       }
     </div>
   </div>
 
-  <!-- Scroll cue -->
-  <a href="#about"
-     class="absolute bottom-20 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2
-            text-white/30 hover:text-gold transition-colors duration-300"
-     aria-label="Прокрутити вниз">
-    <span class="text-[9px] uppercase tracking-widest">Далі</span>
-    <svg class="w-4 h-4 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7"/>
-    </svg>
-  </a>
 
 </section>

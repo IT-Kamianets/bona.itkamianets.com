@@ -1,29 +1,46 @@
-<section
-  id="menu"
-  class="py-16 sm:py-24 lg:py-36 bg-white"
-  aria-label="Меню ресторану"
->
-  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+<div class="min-h-screen bg-white pt-20">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-12 lg:py-16">
 
-    <!-- Section header -->
+    <!-- Back link -->
+    <a
+      routerLink="/"
+      class="inline-flex items-center gap-2 text-[11px] uppercase tracking-widest
+             text-ink/40 hover:text-ink transition-colors duration-200 mb-12"
+    >
+      <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5M12 5l-7 7 7 7"/>
+      </svg>
+      Назад
+    </a>
+
+    <!-- Section header + search -->
     <header class="mb-12 lg:mb-16 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
       <div>
         <p class="section-label mb-4">Наші страви</p>
-        <h2 class="font-serif text-4xl sm:text-5xl text-ink font-medium mb-5">Меню</h2>
+        <h1 class="font-serif text-4xl sm:text-5xl text-ink font-medium mb-5">Меню</h1>
         <span class="gold-rule"></span>
       </div>
-      <a
-        href="https://expz.menu/bona"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="btn-ghost shrink-0"
-      >
-        Повне меню
-        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+
+      <!-- Search -->
+      <div class="relative shrink-0 w-full sm:w-80">
+        <svg
+          class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-ink/30 pointer-events-none"
+          fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"
+        >
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+            d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/>
         </svg>
-      </a>
+        <input
+          type="search"
+          placeholder="Пошук страви…"
+          [value]="searchQuery()"
+          (input)="onSearch($event)"
+          class="w-full pl-10 pr-4 py-2.5 text-[13px] bg-cream border border-ink/10
+                 rounded-sm text-ink placeholder:text-ink/30
+                 focus:outline-none focus:border-gold/60 transition-colors duration-200"
+          aria-label="Пошук по меню"
+        />
+      </div>
     </header>
 
     <!-- Loading -->
@@ -98,9 +115,21 @@
 
       <!-- Dishes grid -->
       @if (filteredDishes.length === 0) {
-        <p class="text-center text-ink/30 py-16 font-serif italic text-lg">
-          Немає доступних позицій
-        </p>
+        <div class="flex flex-col items-center py-24 gap-4 text-center">
+          <p class="font-serif italic text-ink/40 text-lg">
+            @if (searchQuery()) {
+              Нічого не знайдено за запитом «{{ searchQuery() }}»
+            } @else {
+              Немає доступних позицій
+            }
+          </p>
+          @if (searchQuery()) {
+            <button
+              (click)="searchQuery.set('')"
+              class="btn-ghost text-[11px]"
+            >Скинути пошук</button>
+          }
+        </div>
       } @else {
         <ul
           class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"
@@ -148,28 +177,9 @@
             </li>
           }
         </ul>
-
-        <!-- Bottom CTA -->
-        <div class="mt-8 sm:mt-16 flex flex-col items-center gap-4 text-center">
-          <p class="font-serif italic text-ink/40 text-sm">
-            Більше страв — у повному меню ресторації
-          </p>
-          <a
-            href="https://expz.menu/bona"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn-primary rounded-sm"
-          >
-            Відкрити повне меню
-            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-            </svg>
-          </a>
-        </div>
       }
 
     }
 
   </div>
-</section>
+</div>
