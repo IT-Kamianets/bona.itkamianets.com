@@ -1,0 +1,110 @@
+<section
+  id="hero"
+  class="relative min-h-svh flex flex-col justify-between bg-forest overflow-hidden"
+  aria-label="Головна секція"
+>
+
+  <!-- Atmospheric layers -->
+  <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+    <!-- Deep gradient overlay -->
+    <div class="absolute inset-0 bg-gradient-to-b from-ink/70 via-forest-dark/50 to-ink/80"></div>
+    <!-- Radial gold glow — top right -->
+    <div class="absolute -top-32 -right-32 w-[600px] h-[600px] rounded-full
+                bg-gold/10 blur-[120px]"></div>
+    <!-- Radial gold glow — bottom left -->
+    <div class="absolute -bottom-24 -left-24 w-[400px] h-[400px] rounded-full
+                bg-gold/8 blur-[100px]"></div>
+    <!-- Subtle texture grid -->
+    <div class="absolute inset-0 opacity-[0.04]"
+         style="background-image: repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(255,255,255,.5) 79px, rgba(255,255,255,.5) 80px), repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(255,255,255,.5) 79px, rgba(255,255,255,.5) 80px);">
+    </div>
+  </div>
+
+  <!-- Main content -->
+  <div class="relative z-10 flex flex-col items-center justify-center flex-1 px-5 pt-32 pb-20 text-center">
+    <header class="max-w-2xl mx-auto">
+
+      <!-- Eyebrow -->
+      <p class="section-label text-gold/70 mb-6 tracking-widest3">
+        Кам'янець-Подільський · з 2021 року
+      </p>
+
+      <!-- Brand name -->
+      <h1 class="brand-script text-[clamp(5rem,15vw,9rem)] text-white leading-none mb-6
+                  drop-shadow-[0_2px_32px_rgba(201,162,77,0.25)]">
+        Bona
+      </h1>
+
+      <!-- Gold rule -->
+      <div class="flex items-center justify-center gap-4 mb-8" aria-hidden="true">
+        <span class="block h-px w-16 bg-gradient-to-r from-transparent to-gold/60"></span>
+        <span class="block w-1.5 h-1.5 bg-gold rounded-full"></span>
+        <span class="block h-px w-16 bg-gradient-to-l from-transparent to-gold/60"></span>
+      </div>
+
+      <!-- Tagline -->
+      <p class="text-[11px] text-white/60 uppercase tracking-widest2 mb-5 font-medium">
+        Ресторація автентичної кухні Поділля
+      </p>
+
+      <p class="font-serif text-lg sm:text-xl text-white/80 italic font-normal
+                max-w-md mx-auto leading-relaxed">
+        «Якщо пити, то вино,<br>якщо в ресторан — до королеви»
+      </p>
+
+    </header>
+
+    <!-- CTA row -->
+    <nav class="mt-12 flex flex-col sm:flex-row gap-4 items-center" aria-label="Основні дії">
+      <a
+        href="https://expz.menu/dd5770f6-fda3-408e-b260-daebece5faba"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn-primary rounded-sm"
+      >
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+        </svg>
+        Переглянути меню
+      </a>
+      <a href="#contacts" class="btn-outline rounded-sm">
+        Заброньювати стіл
+      </a>
+    </nav>
+
+    <!-- Scroll stats row -->
+    <div class="mt-16 flex items-center gap-8 sm:gap-12" aria-hidden="true">
+      @for (stat of heroStats; track stat.label) {
+        <div class="text-center">
+          <p class="font-serif text-2xl text-gold font-medium leading-none mb-1">{{ stat.value }}</p>
+          <p class="text-[9px] text-white/40 uppercase tracking-widest">{{ stat.label }}</p>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Marquee strip -->
+  <div class="relative z-10 overflow-hidden bg-black/30 backdrop-blur-sm
+              border-t border-white/10 py-3" aria-hidden="true">
+    <div class="flex animate-marquee whitespace-nowrap select-none">
+      @for (phrase of marquee; track $index) {
+        <span class="text-white/40 text-[9px] uppercase tracking-widest2 px-8 font-medium">
+          {{ phrase }}
+        </span>
+      }
+    </div>
+  </div>
+
+  <!-- Scroll cue -->
+  <a href="#about"
+     class="absolute bottom-20 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2
+            text-white/30 hover:text-gold transition-colors duration-300"
+     aria-label="Прокрутити вниз">
+    <span class="text-[9px] uppercase tracking-widest">Далі</span>
+    <svg class="w-4 h-4 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7"/>
+    </svg>
+  </a>
+
+</section>

@@ -1,0 +1,87 @@
+<section
+  id="gallery"
+  class="py-24 lg:py-36 bg-ink overflow-hidden"
+  aria-label="Галерея ресторану"
+>
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+
+    <!-- Header -->
+    <header class="mb-14 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
+      <div>
+        <p class="section-label text-gold/60 mb-4">Наша атмосфера</p>
+        <h2 class="font-serif text-4xl sm:text-5xl text-white font-medium mb-5">Галерея</h2>
+        <span class="gold-rule"></span>
+      </div>
+      <p class="text-[12px] text-white/30 leading-relaxed max-w-xs sm:text-right">
+        Затишний простір, де сучасність<br>зустрічається з традицією Поділля
+      </p>
+    </header>
+
+    <!-- Masonry grid — CSS columns -->
+    <div class="columns-1 sm:columns-2 lg:columns-3 gap-4" role="list">
+      @for (item of galleryItems; track item.id) {
+        <figure
+          class="break-inside-avoid mb-4 overflow-hidden rounded-xl group cursor-pointer
+                 shadow-[0_2px_20px_rgba(0,0,0,0.4)]"
+          role="listitem"
+        >
+          <!-- Placeholder with distinct tones / moods -->
+          <div
+            class="w-full relative overflow-hidden"
+            [ngClass]="item.aspect"
+          >
+            <div
+              class="absolute inset-0 transition-transform duration-700 group-hover:scale-105"
+              [ngClass]="item.gradient"
+            ></div>
+            <!-- Label -->
+            <div class="absolute inset-0 flex flex-col items-center justify-center gap-2">
+              <span class="text-white/20 text-[9px] uppercase tracking-widest3 select-none">
+                {{ item.label }}
+              </span>
+            </div>
+            <!-- Hover overlay -->
+            <div class="absolute inset-0 bg-gold/0 group-hover:bg-gold/8 transition-colors duration-500"></div>
+            <!-- Bottom gradient -->
+            <div class="absolute inset-x-0 bottom-0 h-1/2
+                        bg-gradient-to-t from-ink/60 to-transparent"></div>
+          </div>
+        </figure>
+      }
+    </div>
+
+    <!-- Social media strip -->
+    <footer class="mt-20 pt-12 border-t border-white/8">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-8">
+
+        <div>
+          <p class="brand-script text-3xl text-gold leading-none mb-1">Bona</p>
+          <p class="text-[10px] text-white/30 uppercase tracking-widest">Соціальні мережі</p>
+        </div>
+
+        <nav class="flex flex-wrap items-center gap-3" aria-label="Соціальні мережі">
+          @for (social of socials; track social.label) {
+            <a
+              [href]="social.url"
+              target="_blank"
+              rel="noopener noreferrer"
+              [attr.aria-label]="social.label"
+              class="flex items-center gap-2.5 px-5 py-2.5 rounded-sm
+                     border border-white/10 text-white/40
+                     text-[10px] uppercase tracking-widest font-medium
+                     transition-all duration-300
+                     hover:border-gold/50 hover:text-gold hover:bg-gold/5"
+            >
+              <svg class="w-3.5 h-3.5 shrink-0" fill="currentColor" [attr.viewBox]="social.viewBox" aria-hidden="true">
+                <path [attr.d]="social.path"/>
+              </svg>
+              {{ social.label }}
+            </a>
+          }
+        </nav>
+
+      </div>
+    </footer>
+
+  </div>
+</section>

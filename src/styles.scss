@@ -1,0 +1,120 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Base ────────────────────────────────────────────────────── */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background-color: #F5F3EF;
+    color: #1E1E1E;
+    line-height: 1.65;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Playfair Display', Georgia, serif;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+
+  ::selection {
+    background-color: #C9A24D33;
+    color: #1E1E1E;
+  }
+}
+
+/* ─── Components ───────────────────────────────────────────────── */
+@layer components {
+
+  /* Brand logotype */
+  .brand-script {
+    font-family: 'Dancing Script', cursive;
+    line-height: 1;
+  }
+
+  /* Section label — small caps above headings */
+  .section-label {
+    @apply text-[10px] font-medium uppercase tracking-widest2 text-gold;
+  }
+
+  /* Gold decorative rule */
+  .gold-rule {
+    @apply block w-10 h-px bg-gold-gradient;
+  }
+
+  /* Primary button — gold */
+  .btn-primary {
+    @apply inline-flex items-center gap-2.5 px-8 py-3.5
+           bg-gold-gradient text-white text-xs font-semibold uppercase tracking-widest
+           shadow-gold
+           transition-all duration-300
+           hover:shadow-gold hover:brightness-110 hover:scale-[1.02]
+           active:scale-[0.99];
+  }
+
+  /* Secondary button — outlined */
+  .btn-outline {
+    @apply inline-flex items-center gap-2.5 px-8 py-3.5
+           border border-white/40 text-white text-xs font-semibold uppercase tracking-widest
+           transition-all duration-300
+           hover:border-white hover:bg-white/10
+           active:scale-[0.99];
+  }
+
+  /* Ghost button — on light bg */
+  .btn-ghost {
+    @apply inline-flex items-center gap-2.5 px-0 py-1
+           text-xs font-semibold uppercase tracking-widest text-ink
+           border-b border-ink/30
+           transition-all duration-300
+           hover:border-ink;
+  }
+
+  /* Dish / product card */
+  .dish-card {
+    @apply bg-white rounded-xl overflow-hidden shadow-soft
+           transition-all duration-300
+           hover:-translate-y-1 hover:shadow-soft-lg;
+  }
+}
+
+/* ─── Utilities ────────────────────────────────────────────────── */
+@layer utilities {
+
+  /* Smooth marquee */
+  .animate-marquee {
+    animation: marquee 28s linear infinite;
+  }
+
+  /* Hide scrollbar */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar { display: none; }
+  }
+
+  /* Line clamp */
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+/* ─── Keyframes ────────────────────────────────────────────────── */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
