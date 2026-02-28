@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, inject, signal } from '@angular/core';
+import { LanguageService } from '../../services/language.service';
 
 @Component({
   selector: 'app-gallery',
@@ -7,44 +8,47 @@ import { Component } from '@angular/core';
   styleUrl: './gallery.scss',
 })
 export class Gallery {
-  galleryItems = [
-    {
-      id: 1,
-      label: 'Інтер\'єр',
-      caption: 'Тепло дерева та каменю Старого міста',
-      gradient: 'bg-gradient-to-br from-forest-dark via-forest to-forest-light/40',
-    },
-    {
-      id: 2,
-      label: 'Атмосфера',
-      caption: 'Вечірнє світло, яке запрошує залишитись',
-      gradient: 'bg-gradient-to-b from-ink via-forest-dark/80 to-forest',
-    },
-    {
-      id: 3,
-      label: 'Страва',
-      caption: 'Автентика Поділля на кожній тарілці',
-      gradient: 'bg-gradient-to-br from-gold/30 via-forest-dark to-ink',
-    },
-    {
-      id: 4,
-      label: 'Вино',
-      caption: 'Кураторська винна карта від сомельє',
-      gradient: 'bg-gradient-to-tl from-gold/20 via-forest-dark to-ink',
-    },
-    {
-      id: 5,
-      label: 'Деталі',
-      caption: 'Кожна дрібниця розказує свою історію',
-      gradient: 'bg-gradient-to-br from-forest via-ink to-forest-dark',
-    },
-    {
-      id: 6,
-      label: 'Кухня',
-      caption: 'Відкрита кухня — частина шоу',
-      gradient: 'bg-gradient-to-tr from-forest-dark via-forest to-gold/15',
-    },
+  private lang = inject(LanguageService);
+  t = this.lang.texts;
+
+  readonly images = [
+    'https://kamianets.travel/storage/468/conversions/01K810K6XGCESQK0MNCEPYKZP4-large.webp',
+    'https://kamianets.travel/storage/482/conversions/01K82WMVGJ9SZMMDBKA32R2MPP-large.webp',
+    'https://kamianets.travel/storage/474/conversions/01K82WH7FBTTF0QTSWPFEWHW2R-large.webp',
+    'https://kamianets.travel/storage/477/conversions/01K82WHCMSS3DWBNQDHHYVDQ33-large.webp',
+    'https://kamianets.travel/storage/480/conversions/01K82WHJ3WPBTQGFVZ4CAAF9ZZ-large.webp',
+    'https://kamianets.travel/storage/478/conversions/01K82WHEG1DV0AR3JH5AMG2WQF-large.webp',
   ];
+
+  activeIndex = signal<number | null>(null);
+
+  open(index: number) {
+    this.activeIndex.set(index);
+    document.body.style.overflow = 'hidden';
+  }
+
+  close() {
+    this.activeIndex.set(null);
+    document.body.style.overflow = '';
+  }
+
+  prev() {
+    const i = this.activeIndex();
+    if (i !== null) this.activeIndex.set((i - 1 + this.images.length) % this.images.length);
+  }
+
+  next() {
+    const i = this.activeIndex();
+    if (i !== null) this.activeIndex.set((i + 1) % this.images.length);
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  onKey(e: KeyboardEvent) {
+    if (this.activeIndex() === null) return;
+    if (e.key === 'Escape') this.close();
+    if (e.key === 'ArrowLeft') this.prev();
+    if (e.key === 'ArrowRight') this.next();
+  }
 
   socials = [
     {

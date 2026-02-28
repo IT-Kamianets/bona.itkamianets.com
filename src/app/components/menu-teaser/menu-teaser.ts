@@ -1,6 +1,9 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, DestroyRef, OnInit, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MenuService } from '../../services/menu';
+import { DishModalService } from '../../services/dish-modal.service';
+import { LanguageService } from '../../services/language.service';
 import { MenuData, Dish } from '../../models/menu.model';
 
 const KITCHEN_MENU_ID = 34573;
@@ -13,13 +16,19 @@ const TEASER_COUNT = 8;
 })
 export class MenuTeaser implements OnInit {
   private menuService = inject(MenuService);
+  private destroyRef = inject(DestroyRef);
+  private langService = inject(LanguageService);
+  dishModal = inject(DishModalService);
+  t = this.langService.texts;
 
   menuData = signal<MenuData | null>(null);
   loading = signal(true);
   error = signal(false);
 
   ngOnInit() {
-    this.menuService.getMenuData().subscribe({
+    this.menuService.getMenuData().pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe({
       next: (data) => {
         this.menuData.set(data);
         this.loading.set(false);

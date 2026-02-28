@@ -1,185 +1,248 @@
-<div class="min-h-screen bg-white pt-20">
-  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-12 lg:py-16">
+<div class="min-h-screen bg-white">
 
-    <!-- Back link -->
-    <a
-      routerLink="/"
-      class="inline-flex items-center gap-2 text-[11px] uppercase tracking-widest
-             text-ink/40 hover:text-ink transition-colors duration-200 mb-12"
-    >
-      <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5M12 5l-7 7 7 7"/>
-      </svg>
-      Назад
-    </a>
+  <!-- ─── Hero ────────────────────────────────────────────────────────── -->
+  <header class="relative overflow-hidden pt-20 pb-16 text-center"
+          style="background: linear-gradient(180deg, #0E2430 0%, #0d2030 60%, #112a35 100%)">
 
-    <!-- Section header + search -->
-    <header class="mb-12 lg:mb-16 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
-      <div>
-        <p class="section-label mb-4">Наші страви</p>
-        <h1 class="font-serif text-4xl sm:text-5xl text-ink font-medium mb-5">Меню</h1>
-        <span class="gold-rule"></span>
+    <!-- Soft forest glow behind text -->
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
+                  w-[560px] h-[280px] rounded-full bg-gold/8 blur-3xl"></div>
+    </div>
+
+    <div class="relative z-10">
+      <!-- Eyebrow with flanking lines -->
+      <div class="flex items-center justify-center gap-2 sm:gap-4 mb-5">
+        <span class="w-6 sm:w-10 h-px bg-gold/30"></span>
+        <p class="section-label text-gold/60 mb-0">{{ t().menuPage.eyebrow }}</p>
+        <span class="w-6 sm:w-10 h-px bg-gold/30"></span>
       </div>
 
-      <!-- Search -->
-      <div class="relative shrink-0 w-full sm:w-80">
-        <svg
-          class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-ink/30 pointer-events-none"
-          fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"
-        >
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/>
-        </svg>
-        <input
-          type="search"
-          placeholder="Пошук страви…"
-          [value]="searchQuery()"
-          (input)="onSearch($event)"
-          class="w-full pl-10 pr-4 py-2.5 text-[13px] bg-cream border border-ink/10
-                 rounded-sm text-ink placeholder:text-ink/30
-                 focus:outline-none focus:border-gold/60 transition-colors duration-200"
-          aria-label="Пошук по меню"
-        />
-      </div>
-    </header>
+      <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl text-white font-medium">{{ t().menuPage.h1 }}</h1>
+      <span class="gold-rule mx-auto mt-5 block"></span>
+    </div>
+  </header>
+
+  <!-- ─── Content ──────────────────────────────────────────────────────── -->
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
 
     <!-- Loading -->
     @if (loading()) {
-      <div class="flex justify-center items-center py-32" role="status" aria-label="Завантаження меню">
+      <div class="flex justify-center items-center py-32" role="status" [attr.aria-label]="t().menuPage.ariaLoading">
         <div class="flex flex-col items-center gap-4">
           <div class="w-8 h-8 rounded-full border-2 border-gold/30 border-t-gold animate-spin"></div>
-          <p class="text-[10px] uppercase tracking-widest text-ink/30 font-medium">Завантаження…</p>
+          <p class="text-[10px] uppercase tracking-widest text-ink/30 font-medium">{{ t().menuPage.loading }}</p>
         </div>
       </div>
     }
 
     @if (error()) {
       <p class="text-center text-ink/40 py-16 font-serif italic text-lg">
-        Не вдалося завантажити меню.
+        {{ t().menuPage.error }}
       </p>
     }
 
     @if (!loading() && !error() && menuData()) {
 
-      <!-- Menu tabs -->
-      <nav
-        class="flex overflow-x-auto scrollbar-hide border-b border-ink/8 mb-8 gap-0"
-        role="tablist"
-        aria-label="Розділи меню"
-      >
-        @for (menu of menus; track menu.id) {
-          <button
-            role="tab"
-            [attr.aria-selected]="activeMenuId() === menu.id"
-            (click)="selectMenu(menu.id)"
-            class="shrink-0 px-5 py-3.5 text-[11px] font-medium uppercase tracking-widest
-                   whitespace-nowrap transition-all duration-300 relative"
-            [ngClass]="activeMenuId() === menu.id
-              ? 'text-ink'
-              : 'text-ink/35 hover:text-ink/60'"
+      <!-- ─── Sticky filter bar ─────────────────────────────────────────── -->
+      <div class="sticky top-16 z-40 bg-white border-b border-ink/8 shadow-soft">
+
+        <!-- Tabs + Search row -->
+        <div class="flex flex-col sm:flex-row sm:items-stretch sm:justify-between gap-0 sm:gap-4 px-0">
+
+          <!-- Menu tabs -->
+          <nav
+            class="flex overflow-x-auto scrollbar-hide gap-0 flex-1"
+            role="tablist"
+            [attr.aria-label]="t().menuPage.ariaTabs"
           >
-            {{ menu.name }}
-            @if (activeMenuId() === menu.id) {
-              <span class="absolute inset-x-0 bottom-0 h-[2px] bg-gold-gradient rounded-full"></span>
+            @for (menu of menus; track menu.id) {
+              <button
+                role="tab"
+                [attr.aria-selected]="activeMenuId() === menu.id"
+                (click)="selectMenu(menu.id)"
+                class="shrink-0 px-5 py-3.5 text-[11px] font-medium uppercase tracking-widest
+                       whitespace-nowrap transition-all duration-300 relative"
+                [ngClass]="activeMenuId() === menu.id
+                  ? 'text-ink'
+                  : 'text-ink/35 hover:text-ink/60'"
+              >
+                {{ menu.name }}
+                @if (activeMenuId() === menu.id) {
+                  <span class="absolute inset-x-0 bottom-0 h-[2px] bg-gold-gradient rounded-full"></span>
+                }
+              </button>
             }
-          </button>
-        }
-      </nav>
+          </nav>
 
-      <!-- Category pills -->
-      <div
-        class="flex overflow-x-auto gap-2 scrollbar-hide mb-10"
-        role="group"
-        aria-label="Фільтр по категоріях"
-      >
-        <button
-          (click)="selectCategory(null)"
-          class="shrink-0 px-4 py-1.5 text-[10px] font-medium uppercase tracking-widest
-                 rounded-full whitespace-nowrap transition-all duration-200"
-          [ngClass]="activeCategoryId() === null
-            ? 'bg-ink text-cream shadow-soft'
-            : 'bg-cream text-ink/50 hover:text-ink hover:bg-ink/8'"
-        >Усі</button>
+          <!-- Search -->
+          <div class="relative shrink-0 w-full sm:w-72 px-0 py-2 sm:self-center border-t border-ink/6 sm:border-0 pt-2 sm:pt-0">
+            <svg
+              class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-ink/30 pointer-events-none"
+              fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/>
+            </svg>
+            <input
+              type="search"
+              [placeholder]="t().menuPage.searchPlaceholder"
+              [value]="searchQuery()"
+              (input)="onSearch($event)"
+              class="w-full pl-10 pr-4 py-2 text-[13px] bg-cream border border-ink/10
+                     rounded-sm text-ink placeholder:text-ink/30
+                     focus:outline-none focus:border-gold/60 transition-colors duration-200"
+              [attr.aria-label]="t().menuPage.searchAriaLabel"
+            />
+          </div>
+        </div>
 
-        @for (cat of activeCategories; track cat.id) {
+        <!-- Category pills row -->
+        <div
+          class="flex overflow-x-auto gap-2 scrollbar-hide px-0 pb-3 pt-1"
+          role="group"
+          [attr.aria-label]="t().menuPage.ariaCats"
+        >
           <button
-            (click)="selectCategory(cat.id)"
-            class="shrink-0 px-4 py-1.5 text-[10px] font-medium uppercase tracking-widest
+            (click)="selectCategory(null)"
+            class="shrink-0 px-4 py-2 text-[10px] font-medium uppercase tracking-widest
                    rounded-full whitespace-nowrap transition-all duration-200"
-            [ngClass]="activeCategoryId() === cat.id
-              ? 'bg-ink text-cream shadow-soft'
+            [ngClass]="activeCategoryId() === null
+              ? 'text-white shadow-soft'
               : 'bg-cream text-ink/50 hover:text-ink hover:bg-ink/8'"
-          >{{ cat.name }}</button>
-        }
-      </div>
+            [style]="activeCategoryId() === null ? 'background:#0E2430' : ''"
+          >{{ t().menuPage.all }}</button>
 
-      <!-- Dishes grid -->
-      @if (filteredDishes.length === 0) {
-        <div class="flex flex-col items-center py-24 gap-4 text-center">
-          <p class="font-serif italic text-ink/40 text-lg">
-            @if (searchQuery()) {
-              Нічого не знайдено за запитом «{{ searchQuery() }}»
-            } @else {
-              Немає доступних позицій
-            }
-          </p>
-          @if (searchQuery()) {
+          @for (cat of activeCategories; track cat.id) {
             <button
-              (click)="searchQuery.set('')"
-              class="btn-ghost text-[11px]"
-            >Скинути пошук</button>
+              (click)="selectCategory(cat.id)"
+              class="shrink-0 px-4 py-2 text-[10px] font-medium uppercase tracking-widest
+                     rounded-full whitespace-nowrap transition-all duration-200"
+              [ngClass]="activeCategoryId() === cat.id
+                ? 'text-white shadow-soft'
+                : 'bg-cream text-ink/50 hover:text-ink hover:bg-ink/8'"
+              [style]="activeCategoryId() === cat.id ? 'background:#0E2430' : ''"
+            >{{ cat.name }}</button>
           }
         </div>
-      } @else {
-        <ul
-          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"
-          role="list"
-        >
-          @for (dish of filteredDishes; track dish.id) {
-            <li>
-              <article class="dish-card group h-full flex flex-col">
+      </div>
 
-                <!-- Image -->
-                <figure class="relative overflow-hidden bg-cream aspect-[4/3] shrink-0">
-                  <img
-                    [src]="getImage(dish)"
-                    [alt]="dish.title"
-                    width="400" height="300"
-                    loading="lazy"
-                    class="w-full h-full object-cover transition-transform duration-500
-                           group-hover:scale-[1.06]"
-                    (error)="$any($event.target).src = 'https://static.shaketopay.com.ua/menu-prod/default-dish.png'"
-                  />
-                  <div class="absolute inset-0 bg-ink/0 group-hover:bg-ink/10 transition-colors duration-300"></div>
-                </figure>
+      <!-- ─── Dishes grid ─────────────────────────────────────────────────── -->
+      <div class="py-10">
+        @if (filteredDishes.length === 0) {
+          <div class="flex flex-col items-center py-24 gap-4 text-center">
+            <!-- Magnifier icon -->
+            <svg class="w-12 h-12 text-ink/15" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/>
+            </svg>
+            <p class="font-serif italic text-ink/40 text-lg">
+              @if (searchQuery()) {
+                {{ t().menuPage.noResultsQuery }} «{{ searchQuery() }}»
+              } @else {
+                {{ t().menuPage.noResults }}
+              }
+            </p>
+            @if (searchQuery()) {
+              <button
+                (click)="searchQuery.set('')"
+                class="btn-ghost text-[11px]"
+              >{{ t().menuPage.resetSearch }}</button>
+            }
+          </div>
+        } @else {
+          <ul
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"
+            role="list"
+          >
+            @for (dish of filteredDishes; track dish.id) {
+              <li>
+                <article class="dish-card group h-full flex flex-col cursor-pointer"
+                         (click)="dishModal.open(dish)">
 
-                <!-- Body -->
-                <div class="flex flex-col flex-1 p-5">
-                  <h3 class="font-serif text-[15px] font-medium text-ink leading-snug mb-2">
-                    {{ dish.title }}
-                  </h3>
+                  <!-- Image -->
+                  <figure class="relative overflow-hidden bg-cream aspect-[4/3] shrink-0">
+                    <img
+                      [src]="getImage(dish)"
+                      [alt]="dish.title"
+                      width="400" height="300"
+                      loading="lazy"
+                      class="w-full h-full object-cover transition-transform duration-500
+                             group-hover:scale-[1.06]"
+                      (error)="$any($event.target).src = 'https://static.shaketopay.com.ua/menu-prod/default-dish.png'"
+                    />
 
-                  @if (stripHtml(dish.description)) {
-                    <p class="text-[12px] text-ink/50 leading-relaxed line-clamp-3 flex-1 mb-4">
-                      {{ stripHtml(dish.description) }}
-                    </p>
-                  }
-
-                  <footer class="mt-auto pt-3.5 border-t border-ink/6
-                                  flex items-center justify-between gap-2">
-                    <span class="font-serif text-gold font-medium text-base">
+                    <!-- Price badge bottom-left -->
+                    <div class="absolute bottom-0 left-0 bg-gold-gradient text-white
+                                font-serif font-semibold text-[13px] px-3 py-1 rounded-tr-lg
+                                shadow-gold leading-tight z-10">
                       {{ formatPrice(dish.minPrice, dish.maxPrice) }}
-                    </span>
-                  </footer>
-                </div>
+                    </div>
 
-              </article>
-            </li>
-          }
-        </ul>
-      }
+                    <!-- Hover CTA overlay -->
+                    <div class="absolute inset-0 flex items-center justify-center
+                                bg-ink/0 group-hover:bg-ink/30 transition-all duration-300">
+                      <span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300
+                                   text-white text-[11px] uppercase tracking-widest font-medium
+                                   border border-white/70 px-4 py-2 rounded-sm">
+                        {{ t().menuPage.viewBtn }}
+                      </span>
+                    </div>
+                  </figure>
+
+                  <!-- Body -->
+                  <div class="flex flex-col flex-1 p-5">
+                    <h3 class="font-serif text-[15px] font-medium text-ink leading-snug mb-2">
+                      {{ dish.title }}
+                    </h3>
+
+                    @if (stripHtml(dish.description)) {
+                      <p class="text-[12px] text-ink/50 leading-relaxed line-clamp-3 flex-1">
+                        {{ stripHtml(dish.description) }}
+                      </p>
+                    }
+                  </div>
+
+                </article>
+              </li>
+            }
+          </ul>
+        }
+      </div>
 
     }
 
   </div>
+
+  <!-- ─── Footer ──────────────────────────────────────────────────────── -->
+  <footer class="bg-ink py-14">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5 sm:gap-8 mb-10">
+        <div>
+          <p class="brand-script text-4xl text-gold leading-none mb-1.5">Bona</p>
+          <p class="text-[9px] text-white/30 uppercase tracking-widest2">
+            {{ t().menuPage.footerSubtitle }}
+          </p>
+        </div>
+        <nav class="flex flex-wrap gap-6" [attr.aria-label]="t().menuPage.footerAriaNav">
+          <a href="/#about"    class="text-[10px] text-white/30 uppercase tracking-widest hover:text-gold transition-colors duration-200">{{ t().menuPage.footerAbout }}</a>
+          <a routerLink="/menu" class="text-[10px] text-white/30 uppercase tracking-widest hover:text-gold transition-colors duration-200">{{ t().menuPage.footerMenu }}</a>
+          <a href="/#gallery"  class="text-[10px] text-white/30 uppercase tracking-widest hover:text-gold transition-colors duration-200">{{ t().menuPage.footerGallery }}</a>
+          <a href="/#contacts" class="text-[10px] text-white/30 uppercase tracking-widest hover:text-gold transition-colors duration-200">{{ t().menuPage.footerContacts }}</a>
+        </nav>
+      </div>
+
+      <hr class="border-white/8 mb-8" />
+
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <p class="text-[11px] text-white/20">© {{ currentYear }} {{ t().menuPage.footerCopyright }}</p>
+        <p class="font-serif text-[11px] text-white/20 italic">
+          {{ t().menuPage.footerQuote }}
+        </p>
+      </div>
+
+    </div>
+  </footer>
+
 </div>

@@ -1,7 +1,10 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, DestroyRef, OnInit, inject, signal } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MenuService } from '../../services/menu';
+import { DishModalService } from '../../services/dish-modal.service';
+import { LanguageService } from '../../services/language.service';
 import { MenuData, MenuTab, MenuCategory, Dish } from '../../models/menu.model';
 
 @Component({
@@ -11,6 +14,12 @@ import { MenuData, MenuTab, MenuCategory, Dish } from '../../models/menu.model';
 })
 export class MenuPageComponent implements OnInit {
   private menuService = inject(MenuService);
+  private destroyRef = inject(DestroyRef);
+  private langService = inject(LanguageService);
+  dishModal = inject(DishModalService);
+  t = this.langService.texts;
+
+  currentYear = new Date().getFullYear();
 
   menuData = signal<MenuData | null>(null);
   loading = signal(true);
@@ -20,10 +29,14 @@ export class MenuPageComponent implements OnInit {
   searchQuery = signal('');
 
   ngOnInit() {
-    this.menuService.getMenuData().subscribe({
+    this.menuService.getMenuData().pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe({
       next: (data) => {
         this.menuData.set(data);
         this.activeMenuId.set(data.menus[0]?.id ?? 0);
+        this.activeCategoryId.set(null);
+        this.searchQuery.set('');
         this.loading.set(false);
       },
       error: () => {
@@ -51,6 +64,8 @@ export class MenuPageComponent implements OnInit {
     let dishes = catId !== null
       ? this.menuService.getDishesForCategory(data, catId)
       : this.menuService.getDishesForMenu(data, this.activeMenuId());
+
+    dishes = dishes.filter(d => d.thumbnailUrl || d.imageUrl);
 
     const q = this.searchQuery().trim().toLowerCase();
     if (!q) return dishes;

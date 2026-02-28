@@ -1,0 +1,59 @@
+@if (isOpen()) {
+  <!-- Backdrop -->
+  <div
+    class="fixed inset-0 z-[100] overflow-y-auto bg-ink/70 backdrop-blur-sm"
+    (click)="service.close()"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-label]="dish()?.title"
+  >
+    <div class="flex min-h-full items-center justify-center p-4">
+    <!-- Modal card -->
+    <div
+      class="relative w-full max-w-lg bg-white rounded-2xl shadow-xl overflow-hidden animate-fadeInUp my-4"
+      (click)="$event.stopPropagation()"
+    >
+      <!-- Close button -->
+      <button
+        class="absolute top-3 right-3 z-10 w-10 h-10 flex items-center justify-center
+               rounded-full bg-white/80 text-ink/60 hover:text-ink hover:bg-white
+               transition-colors duration-200 shadow-sm"
+        (click)="service.close()"
+        [attr.aria-label]="t().dishModal.closeAriaLabel"
+      >
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+
+      <!-- Image -->
+      <figure class="relative aspect-[16/9] bg-cream overflow-hidden">
+        <img
+          [src]="getImage()"
+          [alt]="dish()?.title"
+          class="w-full h-full object-cover"
+          (error)="$any($event.target).src = 'https://static.shaketopay.com.ua/menu-prod/default-dish.png'"
+        />
+      </figure>
+
+      <!-- Body -->
+      <div class="p-4 sm:p-6">
+        <h2 class="font-serif text-xl font-medium text-ink mb-3">{{ dish()?.title }}</h2>
+
+        @if (dish()?.description && stripHtml(dish()!.description)) {
+          <p class="text-[13px] text-ink/60 leading-relaxed mb-5 max-h-40 overflow-y-auto">
+            {{ stripHtml(dish()!.description) }}
+          </p>
+        }
+
+        <div class="flex items-center justify-between pt-4 border-t border-ink/8">
+          <span class="inline-block bg-gold-gradient font-serif font-semibold text-white text-base px-4 py-1.5 rounded-sm tracking-wide shadow-gold">
+            {{ formatPrice() }}
+          </span>
+        </div>
+      </div>
+
+    </div>
+    </div>
+  </div>
+}

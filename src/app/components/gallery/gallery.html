@@ -1,135 +1,190 @@
 <section
   id="gallery"
   class="py-16 sm:py-24 lg:py-36 bg-ink overflow-hidden"
-  aria-label="Галерея ресторану"
+  [attr.aria-label]="t().gallery.ariaSection"
 >
   <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
 
     <!-- Header -->
     <header class="mb-8 sm:mb-14 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
       <div>
-        <p class="section-label text-gold/60 mb-4">Наша атмосфера</p>
-        <h2 class="font-serif text-4xl sm:text-5xl text-white font-medium mb-5">Галерея</h2>
+        <p class="section-label text-gold/60 mb-4">{{ t().gallery.sectionLabel }}</p>
+        <h2 class="font-serif text-4xl sm:text-5xl text-white font-medium mb-5">{{ t().gallery.h2 }}</h2>
         <span class="gold-rule"></span>
       </div>
       <p class="font-serif italic text-white/30 text-[15px] max-w-xs sm:text-right leading-relaxed">
-        Затишний простір, де сучасність<br>зустрічається з традицією Поділля
+        {{ t().gallery.subtitle1 }}<br>{{ t().gallery.subtitle2 }}
       </p>
     </header>
 
     <!-- Bento grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 auto-rows-[240px] sm:auto-rows-[220px]">
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 auto-rows-[180px] sm:auto-rows-[220px]">
 
       <!-- Item 1 — wide feature -->
       <figure class="sm:col-span-2 sm:row-span-2 group relative overflow-hidden rounded-2xl cursor-pointer
-                     shadow-[0_4px_32px_rgba(0,0,0,0.5)]">
+                     shadow-[0_4px_32px_rgba(0,0,0,0.5)]"
+              (click)="open(0)">
         <img
-          src="https://kamianets.travel/storage/468/conversions/01K810K6XGCESQK0MNCEPYKZP4-large.webp"
-          alt="Головний зал ресторації Bona"
+          [src]="images[0]"
+          alt="{{ t().gallery.imgAlt1 }}"
           class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
         <div class="absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent"></div>
         <div class="absolute inset-0 bg-gold/0 group-hover:bg-gold/6 transition-colors duration-500"></div>
+        <!-- Expand icon -->
+        <div class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/0 group-hover:bg-white/15
+                    flex items-center justify-center transition-all duration-300
+                    opacity-0 group-hover:opacity-100">
+          <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5v-4m0 4h-4m4 0l-5-5"/>
+          </svg>
+        </div>
         <figcaption class="absolute inset-x-0 bottom-0 p-4 sm:p-6 translate-y-2 group-hover:translate-y-0
                            transition-transform duration-400">
-          <p class="text-[9px] text-gold uppercase tracking-widest mb-1 font-medium">Інтер'єр</p>
+          <p class="text-[9px] text-gold uppercase tracking-widest mb-1 font-medium">{{ t().gallery.items[0].label }}</p>
           <p class="font-serif italic text-white/70 text-sm leading-snug">
-            Тепло дерева та каменю Старого міста
+            {{ t().gallery.items[0].caption }}
           </p>
         </figcaption>
       </figure>
 
       <!-- Item 2 — tall right -->
       <figure class="sm:row-span-2 group relative overflow-hidden rounded-2xl cursor-pointer
-                     shadow-[0_4px_32px_rgba(0,0,0,0.5)]">
+                     shadow-[0_4px_32px_rgba(0,0,0,0.5)]"
+              (click)="open(1)">
         <img
-          src="https://kamianets.travel/storage/482/conversions/01K82WMVGJ9SZMMDBKA32R2MPP-large.webp"
-          alt="Вхід до ресторації Bona"
+          [src]="images[1]"
+          alt="{{ t().gallery.imgAlt2 }}"
           class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
         <div class="absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent"></div>
         <div class="absolute inset-0 bg-gold/0 group-hover:bg-gold/6 transition-colors duration-500"></div>
+        <div class="absolute top-4 right-4 w-8 h-8 rounded-full group-hover:bg-white/15
+                    flex items-center justify-center transition-all duration-300
+                    opacity-0 group-hover:opacity-100">
+          <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5v-4m0 4h-4m4 0l-5-5"/>
+          </svg>
+        </div>
         <figcaption class="absolute inset-x-0 bottom-0 p-4 sm:p-5 translate-y-2 group-hover:translate-y-0
                            transition-transform duration-400">
-          <p class="text-[9px] text-gold uppercase tracking-widest mb-1 font-medium">Атмосфера</p>
+          <p class="text-[9px] text-gold uppercase tracking-widest mb-1 font-medium">{{ t().gallery.items[1].label }}</p>
           <p class="font-serif italic text-white/70 text-sm leading-snug">
-            Простір, що запрошує залишитись
+            {{ t().gallery.items[1].caption }}
           </p>
         </figcaption>
       </figure>
 
       <!-- Item 3 -->
       <figure class="group relative overflow-hidden rounded-2xl cursor-pointer
-                     shadow-[0_4px_32px_rgba(0,0,0,0.5)]">
+                     shadow-[0_4px_32px_rgba(0,0,0,0.5)]"
+              (click)="open(2)">
         <img
-          src="https://kamianets.travel/storage/474/conversions/01K82WH7FBTTF0QTSWPFEWHW2R-large.webp"
-          alt="Дров'яна піч ресторації Bona"
+          [src]="images[2]"
+          alt="{{ t().gallery.imgAlt3 }}"
           class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
         <div class="absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent"></div>
         <div class="absolute inset-0 bg-gold/0 group-hover:bg-gold/6 transition-colors duration-500"></div>
+        <div class="absolute top-3 right-3 w-7 h-7 rounded-full group-hover:bg-white/15
+                    flex items-center justify-center transition-all duration-300
+                    opacity-0 group-hover:opacity-100">
+          <svg class="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5v-4m0 4h-4m4 0l-5-5"/>
+          </svg>
+        </div>
         <figcaption class="absolute inset-x-0 bottom-0 p-4 sm:p-5 translate-y-2 group-hover:translate-y-0
                            transition-transform duration-400">
-          <p class="text-[9px] text-gold uppercase tracking-widest mb-1 font-medium">Піч</p>
+          <p class="text-[9px] text-gold uppercase tracking-widest mb-1 font-medium">{{ t().gallery.items[2].label }}</p>
           <p class="font-serif italic text-white/70 text-sm leading-snug">
-            Справжній вогонь — справжній смак
+            {{ t().gallery.items[2].caption }}
           </p>
         </figcaption>
       </figure>
 
       <!-- Item 4 -->
       <figure class="group relative overflow-hidden rounded-2xl cursor-pointer
-                     shadow-[0_4px_32px_rgba(0,0,0,0.5)]">
+                     shadow-[0_4px_32px_rgba(0,0,0,0.5)]"
+              (click)="open(3)">
         <img
-          src="https://kamianets.travel/storage/477/conversions/01K82WHCMSS3DWBNQDHHYVDQ33-large.webp"
-          alt="Шеф-кухар ресторації Bona"
+          [src]="images[3]"
+          alt="{{ t().gallery.imgAlt4 }}"
           class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
         <div class="absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent"></div>
         <div class="absolute inset-0 bg-gold/0 group-hover:bg-gold/6 transition-colors duration-500"></div>
+        <div class="absolute top-3 right-3 w-7 h-7 rounded-full group-hover:bg-white/15
+                    flex items-center justify-center transition-all duration-300
+                    opacity-0 group-hover:opacity-100">
+          <svg class="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5v-4m0 4h-4m4 0l-5-5"/>
+          </svg>
+        </div>
         <figcaption class="absolute inset-x-0 bottom-0 p-4 sm:p-5 translate-y-2 group-hover:translate-y-0
                            transition-transform duration-400">
-          <p class="text-[9px] text-gold uppercase tracking-widest mb-1 font-medium">Кухня</p>
+          <p class="text-[9px] text-gold uppercase tracking-widest mb-1 font-medium">{{ t().gallery.items[3].label }}</p>
           <p class="font-serif italic text-white/70 text-sm leading-snug">
-            Майстерність у кожному жесті
+            {{ t().gallery.items[3].caption }}
           </p>
         </figcaption>
       </figure>
 
       <!-- Item 5 -->
       <figure class="group relative overflow-hidden rounded-2xl cursor-pointer
-                     shadow-[0_4px_32px_rgba(0,0,0,0.5)]">
+                     shadow-[0_4px_32px_rgba(0,0,0,0.5)]"
+              (click)="open(4)">
         <img
-          src="https://kamianets.travel/storage/480/conversions/01K82WHJ3WPBTQGFVZ4CAAF9ZZ-large.webp"
-          alt="Декор ресторації Bona"
+          [src]="images[4]"
+          alt="{{ t().gallery.imgAlt5 }}"
           class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
         <div class="absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent"></div>
         <div class="absolute inset-0 bg-gold/0 group-hover:bg-gold/6 transition-colors duration-500"></div>
+        <div class="absolute top-3 right-3 w-7 h-7 rounded-full group-hover:bg-white/15
+                    flex items-center justify-center transition-all duration-300
+                    opacity-0 group-hover:opacity-100">
+          <svg class="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l5-5m11 5v-4m0 4h-4m4 0l-5-5"/>
+          </svg>
+        </div>
         <figcaption class="absolute inset-x-0 bottom-0 p-4 sm:p-5 translate-y-2 group-hover:translate-y-0
                            transition-transform duration-400">
-          <p class="text-[9px] text-gold uppercase tracking-widest mb-1 font-medium">Деталі</p>
+          <p class="text-[9px] text-gold uppercase tracking-widest mb-1 font-medium">{{ t().gallery.items[4].label }}</p>
           <p class="font-serif italic text-white/70 text-sm leading-snug">
-            Кожна дрібниця розказує свою історію
+            {{ t().gallery.items[4].caption }}
           </p>
         </figcaption>
       </figure>
 
       <!-- Item 6 — wide bottom -->
       <figure class="sm:col-span-2 group relative overflow-hidden rounded-2xl cursor-pointer
-                     shadow-[0_4px_32px_rgba(0,0,0,0.5)]">
+                     shadow-[0_4px_32px_rgba(0,0,0,0.5)]"
+              (click)="open(5)">
         <img
-          src="https://kamianets.travel/storage/478/conversions/01K82WHEG1DV0AR3JH5AMG2WQF-large.webp"
-          alt="Літня тераса ресторації Bona"
+          [src]="images[5]"
+          alt="{{ t().gallery.imgAlt6 }}"
           class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
         <div class="absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent"></div>
         <div class="absolute inset-0 bg-gold/0 group-hover:bg-gold/6 transition-colors duration-500"></div>
+        <div class="absolute top-3 right-3 w-7 h-7 rounded-full group-hover:bg-white/15
+                    flex items-center justify-center transition-all duration-300
+                    opacity-0 group-hover:opacity-100">
+          <svg class="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5v-4m0 4h-4m4 0l-5-5"/>
+          </svg>
+        </div>
         <figcaption class="absolute inset-x-0 bottom-0 p-4 sm:p-5 translate-y-2 group-hover:translate-y-0
                            transition-transform duration-400">
-          <p class="text-[9px] text-gold uppercase tracking-widest mb-1 font-medium">Тераса</p>
+          <p class="text-[9px] text-gold uppercase tracking-widest mb-1 font-medium">{{ t().gallery.items[5].label }}</p>
           <p class="font-serif italic text-white/70 text-sm leading-snug">
-            Літня тераса в серці Старого міста
+            {{ t().gallery.items[5].caption }}
           </p>
         </figcaption>
       </figure>
@@ -149,7 +204,7 @@
         <svg class="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
         </svg>
-        Більше фото в Instagram @bona.rest
+        {{ t().gallery.instagram }}
       </a>
     </div>
 
@@ -159,10 +214,10 @@
 
         <div>
           <p class="brand-script text-3xl text-gold leading-none mb-1">Bona</p>
-          <p class="text-[10px] text-white/30 uppercase tracking-widest">Соціальні мережі</p>
+          <p class="text-[10px] text-white/30 uppercase tracking-widest">{{ t().gallery.socialsLabel }}</p>
         </div>
 
-        <nav class="flex flex-wrap items-center gap-3" aria-label="Соціальні мережі">
+        <nav class="flex flex-wrap items-center gap-3" [attr.aria-label]="t().gallery.ariaSocials">
           @for (social of socials; track social.label) {
             <a
               [href]="social.url"
@@ -188,3 +243,79 @@
 
   </div>
 </section>
+
+<!-- ─── Lightbox ────────────────────────────────────────────────────────── -->
+@if (activeIndex() !== null) {
+  <div
+    class="fixed inset-0 z-[200] flex items-center justify-center bg-ink/95 backdrop-blur-sm"
+    role="dialog"
+    aria-modal="true"
+    (click)="close()"
+  >
+    <!-- Image + caption -->
+    <div
+      class="relative flex flex-col items-center w-full max-w-5xl mx-4 sm:mx-10"
+      (click)="$event.stopPropagation()"
+    >
+      <img
+        [src]="images[activeIndex()!]"
+        [alt]="t().gallery.items[activeIndex()!].caption"
+        class="max-h-[80vh] max-w-full object-contain rounded-xl shadow-[0_8px_64px_rgba(0,0,0,0.7)]"
+      />
+
+      <!-- Caption + counter -->
+      <div class="mt-4 w-full flex items-center justify-between px-1">
+        <div>
+          <p class="text-[9px] text-gold uppercase tracking-widest mb-0.5 font-medium">
+            {{ t().gallery.items[activeIndex()!].label }}
+          </p>
+          <p class="font-serif italic text-white/50 text-sm">
+            {{ t().gallery.items[activeIndex()!].caption }}
+          </p>
+        </div>
+        <p class="text-[11px] text-white/25 font-medium tabular-nums shrink-0">
+          {{ activeIndex()! + 1 }}&thinsp;/&thinsp;{{ images.length }}
+        </p>
+      </div>
+    </div>
+
+    <!-- Close -->
+    <button
+      class="absolute top-4 right-4 w-11 h-11 flex items-center justify-center
+             rounded-full bg-white/10 hover:bg-white/20 text-white
+             transition-colors duration-200"
+      (click)="close()"
+      aria-label="Close"
+    >
+      <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+
+    <!-- Prev -->
+    <button
+      class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center
+             rounded-full bg-white/10 hover:bg-white/20 text-white
+             transition-colors duration-200"
+      (click)="$event.stopPropagation(); prev()"
+      aria-label="Previous"
+    >
+      <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+      </svg>
+    </button>
+
+    <!-- Next -->
+    <button
+      class="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center
+             rounded-full bg-white/10 hover:bg-white/20 text-white
+             transition-colors duration-200"
+      (click)="$event.stopPropagation(); next()"
+      aria-label="Next"
+    >
+      <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+      </svg>
+    </button>
+  </div>
+}

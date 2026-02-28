@@ -1,7 +1,7 @@
 <section
   id="hero"
   class="relative min-h-svh flex flex-col justify-between bg-forest overflow-hidden"
-  aria-label="Головна секція"
+  aria-label="Hero"
 >
 
   <!-- Atmospheric layers -->
@@ -32,7 +32,7 @@
 
       <!-- Eyebrow -->
       <p class="section-label text-gold/70 mb-6 tracking-widest3">
-        Кам'янець-Подільський · Старе місто
+        {{ t().hero.eyebrow }}
       </p>
 
       <!-- Brand name -->
@@ -50,29 +50,29 @@
 
       <!-- Tagline -->
       <p class="text-[11px] text-white/60 uppercase tracking-widest2 mb-5 font-medium">
-        Ресторація автентичної кухні Поділля
+        {{ t().hero.tagline }}
       </p>
 
-      <p class="font-serif text-lg sm:text-xl text-white/80 italic font-normal
-                max-w-md mx-auto leading-relaxed">
-        «Якщо пити, то вино,<br>якщо в ресторан — до королеви»
+      <p class="font-serif text-base sm:text-lg sm:text-xl text-white/80 italic font-normal
+                max-w-[18rem] sm:max-w-md mx-auto leading-relaxed">
+        {{ t().hero.quoteLine1 }}<br>{{ t().hero.quoteLine2 }}
       </p>
 
     </header>
 
     <!-- CTA row -->
-    <nav class="mt-8 sm:mt-12 flex flex-col sm:flex-row gap-3 sm:gap-4 items-center" aria-label="Основні дії">
+    <nav class="mt-8 sm:mt-12 flex flex-col sm:flex-row gap-3 sm:gap-4 items-center" aria-label="CTA">
       <a routerLink="/menu" class="btn-primary rounded-sm">
-        Меню
+        {{ t().hero.ctaMenu }}
       </a>
-      <a href="#contacts" class="btn-outline rounded-sm">
-        Забронювати стіл
+      <a href="#reservation" class="btn-outline rounded-sm">
+        {{ t().hero.ctaBook }}
       </a>
     </nav>
 
     <!-- Scroll stats row -->
     <div class="mt-10 sm:mt-16 flex items-center gap-5 sm:gap-10 md:gap-12" aria-hidden="true">
-      @for (stat of heroStats; track stat.label) {
+      @for (stat of t().hero.stats; track stat.label) {
         <div class="text-center">
           <p class="font-serif text-xl sm:text-2xl text-gold font-medium leading-none mb-1">{{ stat.value }}</p>
           <p class="text-[8px] sm:text-[9px] text-white/40 uppercase tracking-widest">{{ stat.label }}</p>
@@ -85,14 +85,13 @@
   <div class="relative z-10 overflow-hidden bg-black/30 backdrop-blur-sm
               border-t border-white/10 py-3" aria-hidden="true">
     <div class="flex animate-marquee whitespace-nowrap select-none">
-      @for (phrase of marquee; track $index) {
-        <span class="font-serif italic text-[11px] sm:text-[13px] tracking-wide px-6 sm:px-10">
+      @for (phrase of t().hero.marquee; track $index) {
+        <span class="font-serif italic text-[12px] sm:text-[13px] tracking-wide px-6 sm:px-10">
           <span class="text-gold">{{ phrase.icon }}</span>
           <span class="text-white/65"> {{ phrase.text }}</span>
         </span>
       }
     </div>
   </div>
-
 
 </section>

@@ -1,44 +1,30 @@
 <section
   id="menu"
   class="py-16 sm:py-24 lg:py-36 bg-white"
-  aria-label="Меню ресторану"
+  [attr.aria-label]="t().menuSection.ariaSection"
 >
   <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
 
     <!-- Section header -->
-    <header class="mb-12 lg:mb-16 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
-      <div>
-        <p class="section-label mb-4">Наші страви</p>
-        <h2 class="font-serif text-4xl sm:text-5xl text-ink font-medium mb-5">Меню</h2>
-        <span class="gold-rule"></span>
-      </div>
-      <a
-        href="https://expz.menu/bona"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="btn-ghost shrink-0"
-      >
-        Повне меню
-        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-        </svg>
-      </a>
+    <header class="mb-12 lg:mb-16">
+      <p class="section-label mb-4">{{ t().menuSection.sectionLabel }}</p>
+      <h2 class="font-serif text-4xl sm:text-5xl text-ink font-medium mb-5">{{ t().menuSection.h2 }}</h2>
+      <span class="gold-rule"></span>
     </header>
 
     <!-- Loading -->
     @if (loading()) {
-      <div class="flex justify-center items-center py-32" role="status" aria-label="Завантаження меню">
+      <div class="flex justify-center items-center py-32" role="status" [attr.aria-label]="t().menuSection.ariaLoading">
         <div class="flex flex-col items-center gap-4">
           <div class="w-8 h-8 rounded-full border-2 border-gold/30 border-t-gold animate-spin"></div>
-          <p class="text-[10px] uppercase tracking-widest text-ink/30 font-medium">Завантаження…</p>
+          <p class="text-[10px] uppercase tracking-widest text-ink/30 font-medium">{{ t().menuSection.loading }}</p>
         </div>
       </div>
     }
 
     @if (error()) {
       <p class="text-center text-ink/40 py-16 font-serif italic text-lg">
-        Не вдалося завантажити меню.
+        {{ t().menuSection.error }}
       </p>
     }
 
@@ -48,7 +34,7 @@
       <nav
         class="flex overflow-x-auto scrollbar-hide border-b border-ink/8 mb-8 gap-0"
         role="tablist"
-        aria-label="Розділи меню"
+        [attr.aria-label]="t().menuSection.ariaTabs"
       >
         @for (menu of menus; track menu.id) {
           <button
@@ -73,21 +59,21 @@
       <div
         class="flex overflow-x-auto gap-2 scrollbar-hide mb-10"
         role="group"
-        aria-label="Фільтр по категоріях"
+        [attr.aria-label]="t().menuSection.ariaCats"
       >
         <button
           (click)="selectCategory(null)"
-          class="shrink-0 px-4 py-1.5 text-[10px] font-medium uppercase tracking-widest
+          class="shrink-0 px-4 py-2 text-[10px] font-medium uppercase tracking-widest
                  rounded-full whitespace-nowrap transition-all duration-200"
           [ngClass]="activeCategoryId() === null
             ? 'bg-ink text-cream shadow-soft'
             : 'bg-cream text-ink/50 hover:text-ink hover:bg-ink/8'"
-        >Усі</button>
+        >{{ t().menuSection.all }}</button>
 
         @for (cat of activeCategories; track cat.id) {
           <button
             (click)="selectCategory(cat.id)"
-            class="shrink-0 px-4 py-1.5 text-[10px] font-medium uppercase tracking-widest
+            class="shrink-0 px-4 py-2 text-[10px] font-medium uppercase tracking-widest
                    rounded-full whitespace-nowrap transition-all duration-200"
             [ngClass]="activeCategoryId() === cat.id
               ? 'bg-ink text-cream shadow-soft'
@@ -99,7 +85,7 @@
       <!-- Dishes grid -->
       @if (filteredDishes.length === 0) {
         <p class="text-center text-ink/30 py-16 font-serif italic text-lg">
-          Немає доступних позицій
+          {{ t().menuSection.noItems }}
         </p>
       } @else {
         <ul
@@ -152,7 +138,7 @@
         <!-- Bottom CTA -->
         <div class="mt-8 sm:mt-16 flex flex-col items-center gap-4 text-center">
           <p class="font-serif italic text-ink/40 text-sm">
-            Більше страв — у повному меню ресторації
+            {{ t().menuSection.ctaText }}
           </p>
           <a
             href="https://expz.menu/bona"
@@ -160,7 +146,7 @@
             rel="noopener noreferrer"
             class="btn-primary rounded-sm"
           >
-            Відкрити повне меню
+            {{ t().menuSection.ctaBtn }}
             <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>

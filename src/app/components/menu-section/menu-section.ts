@@ -1,6 +1,8 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
-import { NgClass, NgOptimizedImage } from '@angular/common';
+import { Component, DestroyRef, OnInit, inject, signal } from '@angular/core';
+import { NgClass } from '@angular/common';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MenuService } from '../../services/menu';
+import { LanguageService } from '../../services/language.service';
 import { MenuData, MenuTab, MenuCategory, Dish } from '../../models/menu.model';
 
 @Component({
@@ -11,6 +13,9 @@ import { MenuData, MenuTab, MenuCategory, Dish } from '../../models/menu.model';
 })
 export class MenuSection implements OnInit {
   private menuService = inject(MenuService);
+  private destroyRef = inject(DestroyRef);
+  private langService = inject(LanguageService);
+  t = this.langService.texts;
 
   menuData = signal<MenuData | null>(null);
   loading = signal(true);
@@ -19,10 +24,13 @@ export class MenuSection implements OnInit {
   activeCategoryId = signal<number | null>(null);
 
   ngOnInit() {
-    this.menuService.getMenuData().subscribe({
+    this.menuService.getMenuData().pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe({
       next: (data) => {
         this.menuData.set(data);
         this.activeMenuId.set(data.menus[0]?.id ?? 0);
+        this.activeCategoryId.set(null);
         this.loading.set(false);
       },
       error: () => {
@@ -30,10 +38,6 @@ export class MenuSection implements OnInit {
         this.loading.set(false);
       }
     });
-  }
-
-  get activeMenuData(): MenuData | null {
-    return this.menuData();
   }
 
   get menus(): MenuTab[] {

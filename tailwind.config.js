@@ -38,6 +38,15 @@ module.exports = {
       backgroundImage: {
         'gold-gradient': 'linear-gradient(135deg, #DFC07A 0%, #C9A24D 50%, #A8842A 100%)',
       },
+      animation: {
+        'fadeInUp': 'fadeInUp 0.35s ease both',
+      },
+      keyframes: {
+        fadeInUp: {
+          from: { opacity: '0', transform: 'translateY(24px)' },
+          to:   { opacity: '1', transform: 'translateY(0)' },
+        },
+      },
     },
   },
   plugins: [],
