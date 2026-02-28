@@ -1,59 +1,96 @@
-# Bona
+# Bona — Ресторація
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.2.
+> Сайт ресторації **Bona** у Кам'янці-Подільському.
+> Автентична кухня Поділля з італійськими акцентами. Натхнена королевою Боною Сфорцою.
 
-## Development server
+---
 
-To start a local development server, run:
+## Стек
 
-```bash
-ng serve
+| Технологія | Версія |
+|---|---|
+| Angular | 21 |
+| Tailwind CSS | 3.4 |
+| TypeScript | 5.x |
+| SCSS | — |
+
+---
+
+## Структура проєкту
+
+```
+src/
+├── app/
+│   ├── components/
+│   │   ├── navbar/          — Фіксований хедер + мобільна нижня навігація
+│   │   ├── hero/            — Fullscreen hero з маркізою
+│   │   ├── about/           — Про ресторацію: факти, цитата, фото
+│   │   ├── menu-section/    — Попередній перегляд меню на головній
+│   │   ├── menu-teaser/     — Тизер переходу до повного меню
+│   │   ├── gallery/         — Фотогалерея з lightbox
+│   │   ├── contacts/        — Контакти, карта, бронювання
+│   │   └── dish-modal/      — Модальне вікно страви
+│   ├── pages/
+│   │   └── menu-page/       — Повна сторінка меню (/menu)
+│   ├── services/
+│   │   ├── language.service.ts   — EN/UA перемикач (signal-based)
+│   │   ├── menu.ts               — Завантаження меню з API
+│   │   └── dish-modal.service.ts — Стан модального вікна
+│   └── i18n/
+│       ├── uk.ts            — Українські тексти (source of truth)
+│       └── en.ts            — Англійські тексти
+├── index.html
+├── styles.scss              — Глобальні стилі + компонентні класи
+└── tailwind.css             — Tailwind entry point
+public/
+├── bona_menu_uk.json        — Дані меню (UA)
+└── bona_menu_en.json        — Дані меню (EN)
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Запуск
 
 ```bash
-ng generate component component-name
+npm install
+npm start          # http://localhost:4200
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### Збірка
 
 ```bash
-ng generate --help
+npm run build      # dist/bona/browser/
 ```
 
-## Building
+---
 
-To build the project run:
+## Функціонал
 
-```bash
-ng build
-```
+- **Двомовність** — EN / UA перемикач у навбарі, збереження у `localStorage`
+- **Повне меню** — сторінка `/menu` з пошуком, фільтром по категоріях і табами
+- **Lightbox галерея** — навігація клавіатурою (ESC, ← →)
+- **Модальне вікно страви** — розгорнута інформація при кліку на картку
+- **Мобільна навігація** — фіксована нижня панель замість burger-меню
+- **Адаптивність** — mobile-first, протестовано на всіх брейкпоїнтах
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
+## Дизайн
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+Бренд-кольори:
 
-```bash
-ng test
-```
+| Токен | HEX | Використання |
+|---|---|---|
+| `gold` | `#C9A24D` | Акценти, кнопки, правило |
+| `ink` | `#1E1E1E` | Основний текст |
+| `cream` | `#F5F3EF` | Світлі секції |
+| `forest` | `#0E2430` | Темні секції, навбар |
 
-## Running end-to-end tests
+Шрифти: **Playfair Display** (заголовки) · **Inter** (тіло) · **Dancing Script** (бренд)
 
-For end-to-end (e2e) testing, run:
+---
 
-```bash
-ng e2e
-```
+## Автори
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+**Розробка та дизайн** — [Danylchuk Andriy](https://github.com/andre20122002)
+**Репозиторій** — [IT-Kamianets / bona.itkamianets.com](https://github.com/IT-Kamianets/bona.itkamianets.com)
