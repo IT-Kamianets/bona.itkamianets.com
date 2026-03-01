@@ -48,7 +48,7 @@
       <div class="sticky top-20 z-40 bg-white border-b border-ink/8 shadow-soft">
 
         <!-- Tabs + Search row -->
-        <div class="flex flex-col sm:flex-row sm:items-stretch sm:justify-between gap-0 sm:gap-4 px-0">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-0 sm:gap-4 px-0">
 
           <!-- Menu tabs -->
           <nav
@@ -76,10 +76,11 @@
           </nav>
 
           <!-- Search -->
-          <div class="shrink-0 w-full sm:w-72 py-2 sm:self-center border-t border-ink/6 sm:border-0 sm:py-0">
-            <div class="relative">
+          <div class="shrink-0 w-full sm:w-72 py-3 sm:py-2 border-t border-ink/6 sm:border-0">
+            <div class="flex items-center gap-2 bg-cream border border-ink/10 rounded-sm px-3
+                        focus-within:border-gold/60 transition-colors duration-200">
               <svg
-                class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-ink/30 pointer-events-none"
+                class="shrink-0 w-4 h-4 text-ink/30 pointer-events-none"
                 fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"
               >
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -90,9 +91,8 @@
                 [placeholder]="t().menuPage.searchPlaceholder"
                 [value]="searchQuery()"
                 (input)="onSearch($event)"
-                class="w-full pl-10 pr-4 py-2 text-[13px] bg-cream border border-ink/10
-                       rounded-sm text-ink placeholder:text-ink/30
-                       focus:outline-none focus:border-gold/60 transition-colors duration-200"
+                class="flex-1 min-w-0 py-2 text-[13px] bg-transparent text-ink
+                       placeholder:text-ink/30 focus:outline-none"
                 [attr.aria-label]="t().menuPage.searchAriaLabel"
               />
             </div>
@@ -101,7 +101,7 @@
 
         <!-- Category pills row -->
         <div
-          class="flex overflow-x-auto gap-2 scrollbar-hide px-0 pb-4 pt-2"
+          class="flex overflow-x-auto gap-2 scrollbar-hide px-5 sm:px-0 pb-4 pt-2"
           role="group"
           [attr.aria-label]="t().menuPage.ariaCats"
         >
@@ -235,7 +235,6 @@
         </nav>
       </div>
 
-      <hr class="border-white/8 mb-8" />
 
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <p class="text-[11px] text-white/20">© {{ currentYear }} {{ t().menuPage.footerCopyright }}</p>
