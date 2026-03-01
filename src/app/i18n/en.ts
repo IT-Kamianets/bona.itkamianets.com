@@ -39,6 +39,7 @@ export const en: Translations = {
     sectionLabel: 'Our story',
     h2line1: 'Where Podillya',
     h2line2: 'meets Italy',
+    restaurantPrefix: 'Restaurant',
     bodyP1: 'is a place where authentic Podillya cuisine meets refined Mediterranean accents. Inspired by the legacy of Queen Bona Sforza, who lived in Kamianets-Podilskyi in the XVI century.',
     bodyP2: 'We use exclusively local produce from trusted suppliers of Khmelnytskyi region. Every dish is an author\'s interpretation of Podillya tradition with respect for seasonality and genuine taste.',
     quoteText: '"Eat well — no Podillya crown will fall from your head"',
@@ -126,6 +127,8 @@ export const en: Translations = {
     reservationBtn: '+380 98 00 01 544',
     mapTitle: 'Location of Bona restaurant — 3/7 Polski Rynok Street',
     addressBadge: '3/7 Polski Rynok St · Kamianets-Podilskyi',
+    socialsLabel: 'Social media',
+    ariaSocials: 'Social media',
   },
   footer: {
     subtitle: 'Restaurant · Kamianets-Podilskyi',
