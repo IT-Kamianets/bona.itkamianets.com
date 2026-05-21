@@ -8,6 +8,7 @@
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background-color: #0E2430;
   }
 
   body {
@@ -118,9 +119,13 @@
     }
   }
 
-  /* Bottom nav — iOS safe area */
+  /* Bottom nav — safe area */
   .bottom-nav {
-    padding-bottom: env(safe-area-inset-bottom);
+    padding-bottom: 0;
+  }
+  .bottom-nav ul {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    height: calc(4rem + env(safe-area-inset-bottom, 0px));
   }
 
   /* Line clamp */
