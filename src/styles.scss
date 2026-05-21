@@ -102,6 +102,22 @@
     &::-webkit-scrollbar { display: none; }
   }
 
+  /* Visible thin scrollbar for category pills */
+  .scrollbar-thin-gold {
+    scrollbar-width: thin;
+    scrollbar-color: #C9A84C transparent;
+    &::-webkit-scrollbar {
+      height: 3px;
+    }
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: #C9A84C;
+      border-radius: 999px;
+    }
+  }
+
   /* Bottom nav — iOS safe area */
   .bottom-nav {
     padding-bottom: env(safe-area-inset-bottom);
